@@ -1,0 +1,107 @@
+//each:code-area-fixture
+
+/////////////
+# rendering #
+/////////////
+
+## prompt ##
+~> setup [&prompt=(styled '~> ' bold)]
+~> render
+┌────────────────────────────────────────┐
+│~>                                      │
+│*** ̅̂                                    │
+└────────────────────────────────────────┘
+
+## rprompt ##
+~> setup [&rprompt=(styled "RP" inverse)]
+~> render
+┌────────────────────────────────────────┐
+│                                      RP│
+│ ̅̂                                     ##│
+└────────────────────────────────────────┘
+
+## code buffer, dot at beginning ##
+~> setup [&buffer=[&content=code &dot=(num 0)]]
+~> render
+┌────────────────────────────────────────┐
+│code                                    │
+│ ̅̂                                       │
+└────────────────────────────────────────┘
+
+## code buffer, dot in the middle ##
+~> setup [&buffer=[&content=code &dot=(num 2)]]
+~> render
+┌────────────────────────────────────────┐
+│code                                    │
+│   ̅̂                                     │
+└────────────────────────────────────────┘
+
+## code buffer, dot at the end ##
+~> setup [&buffer=[&content=code &dot=(num 4)]]
+~> render
+┌────────────────────────────────────────┐
+│code                                    │
+│     ̅̂                                   │
+└────────────────────────────────────────┘
+
+## prompt, code and rprompt ##
+~> setup [&prompt=(styled '~> ') &rprompt=(styled 'RP')
+          &buffer=[&content=code &dot=(num 4)]]
+~> render
+┌────────────────────────────────────────┐
+│~> code                               RP│
+│        ̅̂                                │
+└────────────────────────────────────────┘
+
+## rprompt hidden due to lack of space ##
+~> use str
+~> setup [&rprompt=(styled 'I am a long rprompt' inverse)]
+~> render
+┌────────────────────────────────────────┐
+│                     I am a long rprompt│
+│ ̅̂                    ###################│
+└────────────────────────────────────────┘
+~> send-keys (str:repeat x 30)
+~> render
+┌────────────────────────────────────────┐
+│xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx          │
+│                               ̅̂         │
+└────────────────────────────────────────┘
+
+## code highlighting ##
+// TODO
+
+## tips ##
+// TODO
+
+## hiding tips ##
+// TODO
+
+//////////////////
+# event handling #
+//////////////////
+
+## simple inserts ##
+~> send-keys 'code'
+~> render
+┌────────────────────────────────────────┐
+│code                                    │
+│     ̅̂                                   │
+└────────────────────────────────────────┘
+~> send-keys [Backspace]
+~> render
+┌────────────────────────────────────────┐
+│cod                                     │
+│    ̅̂                                    │
+└────────────────────────────────────────┘
+
+## uncode inserts ##
+~> send-keys 你好
+~> render
+┌────────────────────────────────────────┐
+│你好                                    │
+│     ̅̂                                   │
+└────────────────────────────────────────┘
+
+## unterminated paste ##
+// TODO

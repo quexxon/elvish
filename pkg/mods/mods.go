@@ -35,6 +35,7 @@ func AddTo(ev *eval.Evaler) {
 	ev.AddModule("doc", doc.Ns)
 	ev.AddModule("os", os.Ns)
 	ev.AddModule("md", md.Ns)
+	// ev.AddModule("etk", etk.Ns)
 	if unix.ExposeUnixNs {
 		ev.AddModule("unix", unix.Ns)
 	}
